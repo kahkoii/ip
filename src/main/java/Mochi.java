@@ -9,29 +9,43 @@ public class Mochi {
                 ____________________________________________________________
                 """);
         Scanner scan = new Scanner(System.in);
-        String s = scan.next();
+        String s = scan.nextLine();
         int listSize = 0;
-        String[] toDoList = new String[100];
+        Task[] toDoList = new Task[100];
 
         while (!s.equals("bye")) {
             switch(s) {
                 case "list":
-                    System.out.println("____________________________________________________________");
+                    System.out.println("""
+                            ____________________________________________________________
+                            Here are the tasks in your list:
+                            """);
                     for (int i = 0; i < listSize; i++) {
-                        System.out.printf("%d. %s\n", i+1, toDoList[i]);
+                        System.out.printf("%d.%s\n", i+1, toDoList[i].toString());
                     }
                     System.out.println("____________________________________________________________");
                     break;
                 default:
-                    toDoList[listSize++] = s;
-                    System.out.printf("""
-                    ____________________________________________________________
-                    added: %s
-                    ____________________________________________________________
-                    """, s);
+                    if (s.startsWith("mark")) {
+                        String task = s.substring(4).trim();
+                        System.out.println(task);
+                        toDoList[Integer.parseInt(task)-1].mark();
+                    }
+                    else if (s.startsWith("unmark")) {
+                        String task = s.substring(6).trim();
+                        toDoList[Integer.parseInt(task)-1].unmark();
+                    }
+                    else {
+                        toDoList[listSize++] = new Task(s);
+                        System.out.printf("""
+                                ____________________________________________________________
+                                added: %s
+                                ____________________________________________________________
+                                """, s);
+                    }
             }
             // Read new input at the end of every command
-            s = scan.next();
+            s = scan.nextLine();
         }
         System.out.println("""
                 ____________________________________________________________
