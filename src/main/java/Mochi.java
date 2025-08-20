@@ -10,13 +10,27 @@ public class Mochi {
                 """);
         Scanner scan = new Scanner(System.in);
         String s = scan.next();
+        int listSize = 0;
+        String[] toDoList = new String[100];
 
         while (!s.equals("bye")) {
-            System.out.printf("""
+            switch(s) {
+                case "list":
+                    System.out.println("____________________________________________________________");
+                    for (int i = 0; i < listSize; i++) {
+                        System.out.printf("%d. %s\n", i+1, toDoList[i]);
+                    }
+                    System.out.println("____________________________________________________________");
+                    break;
+                default:
+                    toDoList[listSize++] = s;
+                    System.out.printf("""
                     ____________________________________________________________
-                    %s
+                    added: %s
                     ____________________________________________________________
                     """, s);
+            }
+            // Read new input at the end of every command
             s = scan.next();
         }
         System.out.println("""
