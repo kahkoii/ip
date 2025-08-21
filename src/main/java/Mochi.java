@@ -23,14 +23,7 @@ public class Mochi {
         while (!s.equals("bye")) {
             try {
                 if (s.equals("list")) {
-                    System.out.println("""
-                        ____________________________________________________________
-                        Here are the tasks in your list:
-                        """);
-                    for (int i = 0; i < taskList.size(); i++) {
-                        System.out.printf("%d.%s\n", i + 1, taskList.get(i).toString());
-                    }
-                    System.out.println("____________________________________________________________");
+                    printList();
                 }
                 else if (s.startsWith("mark")) {
                     String task = s.substring(4).trim();
@@ -102,7 +95,26 @@ public class Mochi {
                     }
                 }
                 else if (s.startsWith("delete")) {
-
+                    String task = s.substring(6).trim();
+                    int taskNo;
+                    try {
+                        taskNo = Integer.parseInt(task);
+                    } catch (Exception e) {
+                        throw new MochiException("Please provide a task number for delete operation.");
+                    }
+                    if (taskList.isEmpty()) {
+                        throw new MochiException("There are no tasks to delete.");
+                    }
+                    else if (taskNo > taskList.size() || taskNo < 1) {
+                        throw new MochiException(String.format("Invalid task number provided. Range is from 1 to %d.", taskList.size()));
+                    }
+                    else {
+                        taskList.remove(taskNo-1);
+                        System.out.println("""
+                            ____________________________________________________________
+                            Delete operation successful.""");
+                        printList();
+                    }
                 }
                 else if (s.startsWith("help")) {
                     System.out.println("""
@@ -151,5 +163,16 @@ public class Mochi {
                     Now you have %d tasks in  the list.
                     ____________________________________________________________
                     """, t.toString(), taskList.size());
+    }
+
+    private static void printList() {
+        System.out.println("""
+                        ____________________________________________________________
+                        Here are the tasks in your list:
+                        """);
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.printf("%d.%s\n", i + 1, taskList.get(i).toString());
+        }
+        System.out.println("____________________________________________________________");
     }
 }
