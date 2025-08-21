@@ -1,8 +1,8 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Mochi {
-    private static Task[] taskList;
-    private static int listSize;
+    private static ArrayList<Task> taskList;
 
     public static void main(String[] args) {
         System.out.println("""
@@ -18,8 +18,7 @@ public class Mochi {
             ____________________________________________________________""");
         Scanner scan = new Scanner(System.in);
         String s = scan.nextLine();
-        listSize = 0;
-        taskList = new Task[100];
+        taskList = new ArrayList<Task>();
 
         while (!s.equals("bye")) {
             try {
@@ -28,8 +27,8 @@ public class Mochi {
                         ____________________________________________________________
                         Here are the tasks in your list:
                         """);
-                    for (int i = 0; i < listSize; i++) {
-                        System.out.printf("%d.%s\n", i + 1, taskList[i].toString());
+                    for (int i = 0; i < taskList.size(); i++) {
+                        System.out.printf("%d.%s\n", i + 1, taskList.get(i).toString());
                     }
                     System.out.println("____________________________________________________________");
                 }
@@ -39,13 +38,13 @@ public class Mochi {
                     try {
                         taskNo = Integer.parseInt(task);
                     } catch (Exception e) {
-                        throw new MarkingException(task, listSize);
+                        throw new MarkingException(task, taskList.size());
                     }
-                    if (taskNo > listSize || taskNo < 1) {
-                        throw new MarkingException(task, listSize);
+                    if (taskNo > taskList.size() || taskNo < 1) {
+                        throw new MarkingException(task, taskList.size());
                     }
                     else {
-                        taskList[taskNo-1].mark();
+                        taskList.get(taskNo-1).mark();
                     }
                 }
                 else if (s.startsWith("unmark")) {
@@ -54,13 +53,13 @@ public class Mochi {
                     try {
                         taskNo = Integer.parseInt(task);
                     } catch (Exception e) {
-                        throw new MarkingException(task, listSize);
+                        throw new MarkingException(task, taskList.size());
                     }
-                    if (listSize == 0 || taskNo > listSize) {
-                        throw new MarkingException(task, listSize);
+                    if (taskList.isEmpty() || taskNo > taskList.size()) {
+                        throw new MarkingException(task, taskList.size());
                     }
                     else {
-                        taskList[taskNo-1].mark();
+                        taskList.get(taskNo-1).unmark();
                     }
                 }
                 else if (s.startsWith("todo")) {
@@ -102,6 +101,9 @@ public class Mochi {
                         throw new EventException();
                     }
                 }
+                else if (s.startsWith("delete")) {
+
+                }
                 else if (s.startsWith("help")) {
                     System.out.println("""
                         ____________________________________________________________
@@ -141,13 +143,13 @@ public class Mochi {
     }
 
     private static void addTask(Task t) {
-        taskList[listSize++] = t;
+        taskList.add(t);
         System.out.printf("""
                     ____________________________________________________________
                     Got it. I've added this task:
                         %s
                     Now you have %d tasks in  the list.
                     ____________________________________________________________
-                    """, t.toString(), listSize);
+                    """, t.toString(), taskList.size());
     }
 }
