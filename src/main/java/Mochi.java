@@ -7,10 +7,15 @@ public class Mochi {
     public static void main(String[] args) {
         System.out.println("""
             ____________________________________________________________
-             Hello! I'm Mochi
+             Hello! I'm
+              __  __            _     _
+             |  \\/  | ___   ___| |__ (_)
+             | |\\/| |/ _ \\ / __| '_ \\| |
+             | |  | | (_) | (__| | | | |
+             |_|  |_|\\___/ \\___|_| |_|_|
+            
              What can I do for you?
-            ____________________________________________________________
-            """);
+            ____________________________________________________________""");
         Scanner scan = new Scanner(System.in);
         String s = scan.nextLine();
         listSize = 0;
