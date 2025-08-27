@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,18 +8,19 @@ public class Mochi {
     public static void main(String[] args) {
         System.out.println("""
             ____________________________________________________________
-             Hello! I'm
+             Hello! I'm your personalized assistant,
               __  __            _     _
              |  \\/  | ___   ___| |__ (_)
              | |\\/| |/ _ \\ / __| '_ \\| |
              | |  | | (_) | (__| | | | |
              |_|  |_|\\___/ \\___|_| |_|_|
             
-             What can I do for you?
+             Type 'help' to begin!
             ____________________________________________________________""");
+        FileHandler fh = new FileHandler("data.txt");
+        taskList = fh.load();
         Scanner scan = new Scanner(System.in);
         String s = scan.nextLine();
-        taskList = new ArrayList<Task>();
 
         while (!s.equals("bye")) {
             try {
@@ -38,6 +40,7 @@ public class Mochi {
                     }
                     else {
                         taskList.get(taskNo-1).mark();
+                        fh.save(taskList);
                     }
                 }
                 else if (s.startsWith("unmark")) {
@@ -53,6 +56,7 @@ public class Mochi {
                     }
                     else {
                         taskList.get(taskNo-1).unmark();
+                        fh.save(taskList);
                     }
                 }
                 else if (s.startsWith("todo")) {
@@ -62,6 +66,7 @@ public class Mochi {
                     }
                     else {
                         addTask(new ToDo(task));
+                        fh.save(taskList);
                     }
                 }
                 else if (s.startsWith("deadline")) {
@@ -73,6 +78,7 @@ public class Mochi {
                             throw new DeadlineException();
                         }
                         addTask(new Deadline(desc, by));
+                        fh.save(taskList);
                     }
                     catch (Exception e) {
                         throw new DeadlineException();
@@ -89,6 +95,7 @@ public class Mochi {
                             throw new EventException();
                         }
                         addTask(new Event(desc, duration[0].trim(), duration[1].trim()));
+                        fh.save(taskList);
                     }
                     catch (Exception e) {
                         throw new EventException();
@@ -113,6 +120,7 @@ public class Mochi {
                         System.out.println("""
                             ____________________________________________________________
                             Delete operation successful.""");
+                        fh.save(taskList);
                         printList();
                     }
                 }
