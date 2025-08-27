@@ -8,6 +8,11 @@ public class ToDo extends Task {
     }
 
     @Override
+    public String getSaveString() {
+        return String.format("T | %d | %s", this.completed ? 1 : 0, this.description);
+    }
+
+    @Override
     public String toString() {
         return String.format("[T]%s", super.toString());
     }

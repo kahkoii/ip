@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected final String description;
     protected boolean completed;
 
@@ -31,6 +31,9 @@ public class Task {
                 ____________________________________________________________
                 """, description);
     }
+
+    // Returns the string representation of this task to be saved as persistent data
+    public abstract String getSaveString();
 
     @Override
     public String toString() {
