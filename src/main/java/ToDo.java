@@ -3,6 +3,10 @@ public class ToDo extends Task {
         super(desc);
     }
 
+    public ToDo (String desc, boolean status) {
+        super(desc,status);
+    }
+
     @Override
     public String toString() {
         return String.format("[T]%s", super.toString());

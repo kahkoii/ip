@@ -7,6 +7,11 @@ public class Task {
         this.completed = false;
     }
 
+    public Task(String desc, boolean status) {
+        this.description = desc;
+        this.completed = status;
+    }
+
     public void mark() {
         this.completed = true;
         System.out.printf("""
