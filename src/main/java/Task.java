@@ -1,10 +1,15 @@
-public class Task {
+public abstract class Task {
     protected final String description;
     protected boolean completed;
 
     public Task(String desc) {
         this.description = desc;
         this.completed = false;
+    }
+
+    public Task(String desc, boolean status) {
+        this.description = desc;
+        this.completed = status;
     }
 
     public void mark() {
@@ -26,6 +31,9 @@ public class Task {
                 ____________________________________________________________
                 """, description);
     }
+
+    // Returns the string representation of this task to be saved as persistent data
+    public abstract String getSaveString();
 
     @Override
     public String toString() {
