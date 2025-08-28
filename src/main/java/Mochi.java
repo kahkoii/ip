@@ -1,147 +1,69 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Mochi {
-    private static ArrayList<Task> taskList;
+    private final TaskList taskList;
+    private final CommandParser cmd;
+    private final Ui ui;
 
-    public static void main(String[] args) {
-        System.out.println("""
-            ____________________________________________________________
-             Hello! I'm your personalized assistant,
-              __  __            _     _
-             |  \\/  | ___   ___| |__ (_)
-             | |\\/| |/ _ \\ / __| '_ \\| |
-             | |  | | (_) | (__| | | | |
-             |_|  |_|\\___/ \\___|_| |_|_|
-            
-             Type 'help' to begin!
-            ____________________________________________________________""");
-        FileHandler fh = new FileHandler("data.txt");
-        taskList = fh.load();
-        Scanner scan = new Scanner(System.in);
-        String s = scan.nextLine();
+    public Mochi(String fileName) {
+        this.ui = new Ui();
+        this.cmd = new CommandParser();
+        FileHandler fh = new FileHandler(fileName);
+        this.taskList = new TaskList(fh.load(), fh);
+    }
 
-        while (!s.equals("bye")) {
+    public void run() {
+        cmd.read();
+        while (cmd.running()) {
             try {
-                if (s.equals("list")) {
-                    printList();
+                if (cmd.is("list")) {
+                    ui.print(taskList.toString());
                 }
-                else if (s.startsWith("mark")) {
-                    String task = s.substring(4).trim();
-                    int taskNo;
+                else if (cmd.is("mark")) {
                     try {
-                        taskNo = Integer.parseInt(task);
-                    } catch (Exception e) {
-                        throw new MarkingException(task, taskList.size());
-                    }
-                    if (taskNo > taskList.size() || taskNo < 1) {
-                        throw new MarkingException(task, taskList.size());
-                    }
-                    else {
-                        taskList.get(taskNo-1).mark();
-                        fh.save(taskList);
+                        ui.print(taskList.complete(cmd.markCommand(taskList.size())));
+                    } catch (MarkingException e) {
+                        ui.error(e);
                     }
                 }
-                else if (s.startsWith("unmark")) {
-                    String task = s.substring(6).trim();
-                    int taskNo;
+                else if (cmd.is("unmark")) {
                     try {
-                        taskNo = Integer.parseInt(task);
-                    } catch (Exception e) {
-                        throw new MarkingException(task, taskList.size());
-                    }
-                    if (taskList.isEmpty() || taskNo > taskList.size()) {
-                        throw new MarkingException(task, taskList.size());
-                    }
-                    else {
-                        taskList.get(taskNo-1).unmark();
-                        fh.save(taskList);
+                        ui.print(taskList.undo(cmd.unmarkCommand(taskList.size())));
+                    } catch (MarkingException e) {
+                        ui.error(e);
                     }
                 }
-                else if (s.startsWith("todo")) {
-                    String task = s.substring(4).trim();
-                    if (task.isEmpty()) {
-                        throw new ToDoException();
-                    }
-                    else {
-                        addTask(new ToDo(task));
-                        fh.save(taskList);
-                    }
-                }
-                else if (s.startsWith("deadline")) {
+                else if (cmd.is("todo")) {
                     try {
-                        String task = s.substring(8).trim();
-                        String[] text = task.split("/by", 2);
-                        String desc = text[0].trim(), by = text[1].trim();
-                        if (desc.isEmpty() || by.isEmpty()) {
-                            throw new DeadlineException();
-                        }
-                        addTask(new Deadline(desc, by));
-                        fh.save(taskList);
-                    }
-                    catch (Exception e) {
-                        throw new DeadlineException();
+                        taskList.add(cmd.todoCommand());
+                    } catch (ToDoException e) {
+                        ui.error(e);
                     }
                 }
-                else if (s.startsWith("event")) {
+                else if (cmd.is("deadline")) {
                     try {
-                        String task = s.substring(5).trim();
-                        String[] text = task.split("/from", 2);
-                        String desc = text[0].trim();
-                        String[] duration = text[1].split("/to", 2);
-                        String from = duration[0].trim(), to = duration[1].trim();
-                        if (desc.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                            throw new EventException();
-                        }
-                        addTask(new Event(desc, duration[0].trim(), duration[1].trim()));
-                        fh.save(taskList);
+                        taskList.add(cmd.deadlineCommand());
                     }
-                    catch (Exception e) {
-                        throw new EventException();
+                    catch (DeadlineException e) {
+                        ui.error(e);
                     }
                 }
-                else if (s.startsWith("delete")) {
-                    String task = s.substring(6).trim();
-                    int taskNo;
+                else if (cmd.is("event")) {
                     try {
-                        taskNo = Integer.parseInt(task);
-                    } catch (Exception e) {
-                        throw new MochiException("Please provide a task number for delete operation.");
+                        taskList.add(cmd.eventCommand());
                     }
-                    if (taskList.isEmpty()) {
-                        throw new MochiException("There are no tasks to delete.");
-                    }
-                    else if (taskNo > taskList.size() || taskNo < 1) {
-                        throw new MochiException(String.format("Invalid task number provided. Range is from 1 to %d.", taskList.size()));
-                    }
-                    else {
-                        taskList.remove(taskNo-1);
-                        System.out.println("""
-                            ____________________________________________________________
-                            Delete operation successful.""");
-                        fh.save(taskList);
-                        printList();
+                    catch (EventException e) {
+                        ui.error(e);
                     }
                 }
-                else if (s.startsWith("help")) {
-                    System.out.println("""
-                        ____________________________________________________________
-                         1. 'todo <description>'
-                            -> create a todo task
-                         2. 'deadline <description> /by <due date>'
-                            -> create a deadline task with due date
-                         3. 'event <description> /from <start time> /to <end time'>
-                            -> create an event task with start and end time
-                         4. 'list'
-                            -> display the list of tasks created and their details
-                         5. 'mark <number>'
-                            -> check off a task, specified by its order in the list
-                               as completed
-                         6. 'unmark <number>'
-                            -> uncheck a task to set it to incomplete
-                         7. 'bye'
-                            -> exit the program
-                        ____________________________________________________________""");
+                else if (cmd.is("delete")) {
+                    try {
+                        taskList.remove(cmd.deleteCommand(taskList.size()));
+                        ui.print(taskList.toString());
+                    } catch (MochiException e) {
+                        ui.error(e);
+                    }
+                }
+                else if (cmd.is("help")) {
+                    ui.showHelp();
                 }
                 else {
                     throw new MochiException();
@@ -151,35 +73,12 @@ public class Mochi {
                 System.out.println(e.toString());
             }
             // Read new input at the end of every command
-            s = scan.nextLine();
+            cmd.read();
         }
-        System.out.println("""
-            ____________________________________________________________
-            Bye. Hope to see you again soon!
-            ____________________________________________________________
-            """);
-
+        ui.exit();
     }
 
-    private static void addTask(Task t) {
-        taskList.add(t);
-        System.out.printf("""
-                    ____________________________________________________________
-                    Got it. I've added this task:
-                        %s
-                    Now you have %d tasks in  the list.
-                    ____________________________________________________________
-                    """, t.toString(), taskList.size());
-    }
-
-    private static void printList() {
-        System.out.println("""
-                        ____________________________________________________________
-                        Here are the tasks in your list:
-                        """);
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.printf("%d.%s\n", i + 1, taskList.get(i).toString());
-        }
-        System.out.println("____________________________________________________________");
+     public static void main(String[] args) {
+        new Mochi("data.txt").run();
     }
 }

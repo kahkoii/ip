@@ -24,7 +24,7 @@ public class Deadline extends Task {
     public Deadline(String desc, String dueDate, boolean status) throws DeadlineException {
         this(desc, dueDate);
         if (status) {
-            this.mark();
+            super.mark();
         }
     }
 

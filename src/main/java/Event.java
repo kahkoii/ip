@@ -40,7 +40,7 @@ public class Event extends Task {
     public Event(String desc, String from, String to, boolean status) throws EventException {
         this(desc, from, to);
         if (status) {
-            this.mark();
+            super.mark();
         }
     }
 

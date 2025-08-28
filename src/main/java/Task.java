@@ -12,9 +12,9 @@ public abstract class Task {
         this.completed = status;
     }
 
-    public void mark() {
+    public String mark() {
         this.completed = true;
-        System.out.printf("""
+        return String.format("""
                 ____________________________________________________________
                  Nice! I've marked this task as done:
                    [X] %s
@@ -22,9 +22,9 @@ public abstract class Task {
                 """, description);
     }
 
-    public void unmark() {
+    public String unmark() {
         this.completed = false;
-        System.out.printf("""
+        return String.format("""
                 ____________________________________________________________
                  OK, I've marked this task as not done yet:
                    [ ] %s
