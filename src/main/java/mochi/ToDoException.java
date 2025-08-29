@@ -10,6 +10,6 @@ public class ToDoException extends MochiException {
         return String.format(super.toString() + "\n" + """
             ------------------------- Details -------------------------
              The description of a todo task cannot be empty.
-             -----------------------------------------------------------""");
+            -----------------------------------------------------------""");
     }
 }

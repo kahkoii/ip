@@ -21,12 +21,12 @@ public class EventException extends MochiException {
                      Format: `event <description> /from <date> <time (optional)> /to <date> <time (optional)>`
                               date format: YYYY-MM-DD | time format: HHmm
                      Example: event gym /from Wednesday 5pm /to 6pm
-                     -----------------------------------------------------------""");
+                    -----------------------------------------------------------""");
         }
         return String.format(super.toString() + "\n" + """
                 ------------------------- Details -------------------------
                  Invalid event command used.
                  %s
-                 -----------------------------------------------------------""",  this.message);
+                -----------------------------------------------------------""",  this.message);
     }
 }

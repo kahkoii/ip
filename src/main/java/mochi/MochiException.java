@@ -17,7 +17,7 @@ public class MochiException extends Exception {
         if (this.info != null) {
             return String.format("""
                 ========================== ERROR ===========================
-                %s
+                 %s
                 ============================================================""", this.info);
         }
         else {
