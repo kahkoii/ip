@@ -1,7 +1,6 @@
 package mochi;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
 /*
  * Parses user commands and extracts relevant information for processing.

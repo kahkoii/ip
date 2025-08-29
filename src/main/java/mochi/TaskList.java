@@ -71,10 +71,6 @@ public class TaskList {
         return res;
     }
 
-    public boolean isEmpty() {
-        return list.isEmpty();
-    }
-
     public void prinTasksWithWord(String word) {
         boolean found = false;
         for (int i = 0; i < list.size(); i++) {
@@ -86,7 +82,7 @@ public class TaskList {
                         ____________________________________________________________
                          Here are the matching tasks in your list:""");
                 }
-                System.out.printf("%d.%s \n", i + 1, t.toString());
+                System.out.printf("%d.%s \n", i + 1, t);
             }
         }
         if (found) {
