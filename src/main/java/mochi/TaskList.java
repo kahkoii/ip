@@ -2,7 +2,9 @@ package mochi;
 
 import java.util.ArrayList;
 
-// 1-indexed list
+/*
+ * Manages the 1-indexed list of tasks created by the user.
+ */
 public class TaskList {
     private final ArrayList<Task> list;
     private final FileHandler fh;
@@ -12,6 +14,9 @@ public class TaskList {
         this.fh = fh;
     }
 
+    /*
+     * Adds a task to the list and saves the updated list to the save file.
+     */
     public void add(Task t) {
         list.add(t);
         System.out.printf("""
@@ -24,6 +29,9 @@ public class TaskList {
         fh.save(list);
     }
 
+    /*
+     * Removes a task from the list by its 1-indexed position and saves the updated list to the save file.
+     */
     public void remove(int taskNumber) {
         list.remove(taskNumber - 1);
         System.out.println("""
@@ -32,18 +40,31 @@ public class TaskList {
         fh.save(list);
     }
 
+    /*
+     * Returns the number of tasks in the list.
+     * 
+     * @return int number of tasks in the list
+     */
     public int size() {
         return this.list.size();
     }
 
-    // Returns output message
+    /*
+     * Marks a task as completed by its 1-indexed position and saves the updated list to the save file.
+     * 
+     * @return Completion output message
+     */
     public String complete(int taskNumber) {
         String res = list.get(taskNumber-1).mark();
         fh.save(list);
         return res;
     }
 
-    // Returns output message
+    /*
+     * Marks a task as uncompleted by its 1-indexed position and saves the updated list to the save file.
+     * 
+     * @return Undo output message
+     */
     public String undo(int taskNumber) {
         String res = list.get(taskNumber-1).unmark();
         fh.save(list);

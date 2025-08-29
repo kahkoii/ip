@@ -1,5 +1,8 @@
 package mochi;
 
+/**
+ * Handles visuals or texts displayed to the user, such as menus or error messasges.
+ */
 public class Ui {
     public Ui() {
         // Initialization message

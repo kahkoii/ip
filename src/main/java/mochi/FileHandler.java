@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/*
+ * Handles reading from and writing to the save file.
+ */
 public class FileHandler {
     private final String fileName;
 
@@ -13,6 +16,9 @@ public class FileHandler {
         this.fileName = s;
     }
 
+    /*
+     * Saves the current task list to the save file inside the `data` folder.
+     */
     public void save(ArrayList<Task> list) {
         try {
             FileWriter fw = new FileWriter("data/" + this.fileName);
@@ -26,6 +32,10 @@ public class FileHandler {
         }
     }
 
+    /*
+     * Loads the task list from the save file inside the `data` folder.
+     * If the file or folder does not exist, a new one will be created.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File("data/" + this.fileName);
@@ -42,6 +52,7 @@ public class FileHandler {
                 Task newTask = parseLine(s.nextLine());
                 tasks.add(newTask);
             }
+            s.close();
         } catch (IOException e) {
             System.out.println("""
             ____________________________________________________________
@@ -54,6 +65,8 @@ public class FileHandler {
     }
 
     /**
+     * Parses a line from the save file and returns the corresponding Task object.
+     * The expected format of each line is:
      * T | 1 | read book
      * D | 0 | return book | June 6th
      * E | 0 | project meeting | Aug 6th | Aug 8th
