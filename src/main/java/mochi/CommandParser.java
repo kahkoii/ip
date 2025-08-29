@@ -1,6 +1,7 @@
 package mochi;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /*
  * Parses user commands and extracts relevant information for processing.
@@ -13,7 +14,7 @@ public class CommandParser {
     private boolean running;
 
     private final String[] COMMANDS = new String[] {
-            "bye", "list", "mark", "unmark", "todo", "deadline", "event", "delete", "help"
+            "bye", "list", "mark", "unmark", "todo", "deadline", "event", "delete", "find", "help"
     };
 
     public CommandParser() {
@@ -43,7 +44,7 @@ public class CommandParser {
 
     /*
      * Checks if the parsed command matches the given string.
-     * 
+     *
      * @param s the command string to check against
      * @return true if the parsed command matches s, false otherwise
      */
@@ -60,7 +61,7 @@ public class CommandParser {
 
     /*
      * Parses and validates the parameters for the 'mark' command.
-     * 
+     *
      * @param listSize the current size of the task list for validation
      * @return the 1-indexed task number to be marked as completed
      * @throws MarkingException if the parameters are invalid or out of range
@@ -81,7 +82,7 @@ public class CommandParser {
 
     /*
      * Parses and validates the parameters for the 'unmark' command.
-     * 
+     *
      * @param listSize the current size of the task list for validation
      * @return the 1-indexed task number to be marked as uncompleted
      * @throws MarkingException if the parameters are invalid or out of range
@@ -140,7 +141,7 @@ public class CommandParser {
 
     /*
      * Parses and validates the parameters for the 'delete' command.
-     * 
+     *
      * @param listSize the current size of the task list for validation
      * @return the 1-indexed task number to be deleted
      * @throws MochiException if the parameters are invalid or out of range
@@ -160,5 +161,9 @@ public class CommandParser {
             throw new MochiException(String.format("Invalid task number provided. Range is from 1 to %d.", listSize));
         }
         return taskNo;
+    }
+
+    public String findCommand() {
+        return this.parameters.substring(4).trim();
     }
 }
