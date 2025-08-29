@@ -43,16 +43,14 @@ public class Mochi {
                 else if (cmd.is("deadline")) {
                     try {
                         taskList.add(cmd.deadlineCommand());
-                    }
-                    catch (DeadlineException e) {
+                    } catch (DeadlineException e) {
                         ui.error(e);
                     }
                 }
                 else if (cmd.is("event")) {
                     try {
                         taskList.add(cmd.eventCommand());
-                    }
-                    catch (EventException e) {
+                    } catch (EventException e) {
                         ui.error(e);
                     }
                 }
@@ -70,8 +68,7 @@ public class Mochi {
                 else {
                     throw new MochiException();
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 ui.error(e);
             }
             // Always read new input
