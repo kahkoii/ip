@@ -32,7 +32,9 @@ public class Ui {
                    as completed
              6. 'unmark <number>'
                 -> uncheck a task to set it to incomplete
-             7. 'bye'
+             7. 'find <word>'
+                -> prints a list of tasks that contain the word(s) given
+             8. 'bye'
                 -> exit the program
             ____________________________________________________________""");
     }

@@ -1,6 +1,7 @@
 package mochi;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class CommandParser {
     private final Scanner scan;
@@ -9,7 +10,7 @@ public class CommandParser {
     private boolean running;
 
     private final String[] commands = new String[] {
-            "bye", "list", "mark", "unmark", "todo", "deadline", "event", "delete", "help"
+            "bye", "list", "mark", "unmark", "todo", "deadline", "event", "delete", "find", "help"
     };
 
     public CommandParser() {
@@ -124,5 +125,9 @@ public class CommandParser {
             throw new MochiException(String.format("Invalid task number provided. Range is from 1 to %d.", listSize));
         }
         return taskNo;
+    }
+
+    public String findCommand() {
+        return this.parameters.substring(4).trim();
     }
 }

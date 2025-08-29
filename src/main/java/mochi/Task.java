@@ -34,6 +34,10 @@ public abstract class Task {
                 """, description);
     }
 
+    public boolean descriptionContains(String word) {
+        return this.description.contains(word);
+    }
+
     // Returns the string representation of this task to be saved as persistent data
     public abstract String getSaveString();
 

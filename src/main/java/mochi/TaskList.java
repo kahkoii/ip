@@ -54,6 +54,30 @@ public class TaskList {
         return list.isEmpty();
     }
 
+    public void prinTasksWithWord(String word) {
+        boolean found = false;
+        for (int i = 0; i < list.size(); i++) {
+            Task t = list.get(i);
+            if (t.descriptionContains(word)) {
+                if (!found) {
+                    found = true;
+                    System.out.println("""
+                        ____________________________________________________________
+                         Here are the matching tasks in your list:""");
+                }
+                System.out.printf("%d.%s \n", i + 1, t.toString());
+            }
+        }
+        if (found) {
+            System.out.println("____________________________________________________________");
+        } else {
+            System.out.printf("""
+                        ____________________________________________________________
+                         There are no tasks that contain the word(s) '%s'
+                        ------------------------------------------------------------ \n""", word);
+        }
+    }
+
     @Override
     public String toString() {
         String s = """
