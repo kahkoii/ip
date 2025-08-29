@@ -1,3 +1,5 @@
+package mochi;
+
 public class MochiException extends Exception {
     private String info = null;
 

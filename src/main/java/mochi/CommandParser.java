@@ -1,3 +1,5 @@
+package mochi;
+
 import java.util.Scanner;
 
 public class CommandParser {
@@ -27,6 +29,7 @@ public class CommandParser {
                     return;
                 }
             }
+            this.command = "unknown";
         }
     }
 

@@ -1,3 +1,5 @@
+package mochi;
+
 public class Ui {
     public Ui() {
         // Initialization message

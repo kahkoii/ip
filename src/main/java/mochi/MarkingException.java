@@ -1,3 +1,5 @@
+package mochi;
+
 public class MarkingException extends MochiException {
     private final String inputProvided;
     private final int listRange;

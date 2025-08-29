@@ -1,3 +1,5 @@
+package mochi;
+
 public class EventException extends MochiException {
     private String message = null;
 

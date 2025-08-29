@@ -1,3 +1,5 @@
+package mochi;
+
 public class Mochi {
     private final TaskList taskList;
     private final CommandParser cmd;
@@ -70,9 +72,9 @@ public class Mochi {
                 }
             }
             catch (Exception e) {
-                System.out.println(e.toString());
+                ui.error(e);
             }
-            // Read new input at the end of every command
+            // Always read new input
             cmd.read();
         }
         ui.exit();

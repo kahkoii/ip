@@ -1,4 +1,5 @@
-import java.io.File;
+package mochi;
+
 import java.util.ArrayList;
 
 // 1-indexed list
