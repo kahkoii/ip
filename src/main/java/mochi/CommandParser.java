@@ -2,6 +2,10 @@ package mochi;
 
 import java.util.Scanner;
 
+/*
+ * Parses user commands and extracts relevant information for processing.
+ * Also executes method calls and handles errors related to command parsing.
+ */
 public class CommandParser {
     private final Scanner scan;
     private String command;
@@ -17,6 +21,10 @@ public class CommandParser {
         this.running = true;
     }
 
+    /*
+     * Reads a line of input from the user and determines the command type and parameters.
+     * If the command is 'bye', sets running to false to indicate program termination.
+     */
     public void read() {
         String s = this.scan.nextLine();
         this.parameters = s;
@@ -33,14 +41,30 @@ public class CommandParser {
         }
     }
 
+    /*
+     * Checks if the parsed command matches the given string.
+     * 
+     * @param s the command string to check against
+     * @return true if the parsed command matches s, false otherwise
+     */
     public boolean is(String s) {
         return s.equals(this.command);
     }
 
+    /*
+     * Returns whether the program should continue running.
+     */
     public boolean running() {
         return this.running;
     }
 
+    /*
+     * Parses and validates the parameters for the 'mark' command.
+     * 
+     * @param listSize the current size of the task list for validation
+     * @return the 1-indexed task number to be marked as completed
+     * @throws MarkingException if the parameters are invalid or out of range
+     */
     public int markCommand(int listSize) throws MarkingException {
         String task = this.parameters.substring(4).trim();
         int taskNo;
@@ -55,6 +79,13 @@ public class CommandParser {
         return taskNo;
     }
 
+    /*
+     * Parses and validates the parameters for the 'unmark' command.
+     * 
+     * @param listSize the current size of the task list for validation
+     * @return the 1-indexed task number to be marked as uncompleted
+     * @throws MarkingException if the parameters are invalid or out of range
+     */
     public int unmarkCommand(int listSize) throws MarkingException {
         String task = this.parameters.substring(6).trim();
         int taskNo;
@@ -109,6 +140,13 @@ public class CommandParser {
         }
     }
 
+    /*
+     * Parses and validates the parameters for the 'delete' command.
+     * 
+     * @param listSize the current size of the task list for validation
+     * @return the 1-indexed task number to be deleted
+     * @throws MochiException if the parameters are invalid or out of range
+     */
     public int deleteCommand(int listSize) throws MochiException {
         String task = this.parameters.substring(6).trim();
         int taskNo;

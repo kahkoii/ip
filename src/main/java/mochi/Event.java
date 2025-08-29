@@ -5,9 +5,22 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Implements an Event task, which is a type of Task that has a description, start time, and end time.
+ */
 public class Event extends Task {
     private LocalDateTime from, to;
 
+    /**
+     * Creates an uncompleted Event with a description, start time, and end time.
+     * The start and end times can be specified in either "yyyy-MM-dd HHmm" format or "yyyy-MM-dd" format.
+     * If the time is not specified, it defaults to the start of the day.
+     *
+     * @param desc the description of the event
+     * @param from the start time of the event, in "yyyy-MM-dd HHmm" or "yyyy-MM-dd" format
+     * @param to the end time of the event, in "yyyy-MM-dd HHmm" or "yyyy-MM-dd" format
+     * @throws EventException if the date/time format is invalid or if the end time is before the start time
+     */
     public Event(String desc, String from, String to) throws EventException {
         super(desc);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -39,6 +52,17 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Creates an Event with a description, start time, and end time with the specified completion status.
+     * The start and end times can be specified in either "yyyy-MM-dd HHmm" format or "yyyy-MM-dd" format.
+     * If the time is not specified, it defaults to the start of the day.
+     *
+     * @param desc the description of the event
+     * @param from the start time of the event, in "yyyy-MM-dd HHmm" or "yyyy-MM-dd" format
+     * @param to the end time of the event, in "yyyy-MM-dd HHmm" or "yyyy-MM-dd" format
+     * @param status the completion status of the event
+     * @throws EventException if the date/time format is invalid or if the end time is before the start time
+     */
     public Event(String desc, String from, String to, boolean status) throws EventException {
         this(desc, from, to);
         if (status) {
