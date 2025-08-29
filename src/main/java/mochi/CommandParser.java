@@ -12,7 +12,7 @@ public class CommandParser {
     private String parameters;
     private boolean running;
 
-    private final String[] commands = new String[] {
+    private final String[] COMMANDS = new String[] {
             "bye", "list", "mark", "unmark", "todo", "deadline", "event", "delete", "help"
     };
 
@@ -31,7 +31,7 @@ public class CommandParser {
         if (s.startsWith("bye")) {
             this.running = false;
         } else {
-            for (String word : commands) {
+            for (String word : COMMANDS) {
                 if (s.startsWith(word)) {
                     this.command = word;
                     return;
@@ -117,8 +117,7 @@ public class CommandParser {
                 throw new DeadlineException();
             }
             return new Deadline(desc, by);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new DeadlineException();
         }
     }
@@ -134,8 +133,7 @@ public class CommandParser {
                 throw new EventException();
             }
             return new Event(desc, duration[0].trim(), duration[1].trim());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new EventException();
         }
     }
