@@ -1,5 +1,8 @@
 package mochi;
 
+/**
+ * Extends MochiException to handle ToDo specific exceptions
+ */
 public class ToDoException extends MochiException {
     public ToDoException() {
         super();

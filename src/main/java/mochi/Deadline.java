@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-/*
+/**
  * Implements a Deadline task, which is a type of Task that has a description and a due date/time.
  */
 public class Deadline extends Task {
@@ -48,11 +48,13 @@ public class Deadline extends Task {
 
     @Override
     public String getSaveString() {
-        return String.format("D | %d | %s | %s", this.completed ? 1 : 0, this.description, this.due.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
+        return String.format("D | %d | %s | %s", this.completed ? 1 : 0, this.description,
+                this.due.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
     }
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.due.format(DateTimeFormatter.ofPattern("dd/MMM/yyyy HH:mm")));
+        return String.format("[D]%s (by: %s)", super.toString(),
+                this.due.format(DateTimeFormatter.ofPattern("dd/MMM/yyyy HH:mm")));
     }
 }

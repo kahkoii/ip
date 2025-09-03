@@ -4,6 +4,10 @@ package mochi;
  * Handles visuals or texts displayed to the user, such as menus or error messasges.
  */
 public class Ui {
+    /**
+     * Returns a UI object to display Mochi specific messages.
+     */
+    @SuppressWarnings("checkstyle:Regexp")
     public Ui() {
         // Initialization message
         System.out.println("""
@@ -13,12 +17,15 @@ public class Ui {
              |  \\/  | ___   ___| |__ (_)
              | |\\/| |/ _ \\ / __| '_ \\| |
              | |  | | (_) | (__| | | | |
-             |_|  |_|\\___/ \\___|_| |_|_|
-            
+             |_|  |_|\\___/ \\___|_| |_|_| \n
              Type 'help' to begin!
-            ____________________________________________________________""");
+            ____________________________________________________________"""
+        );
     }
 
+    /**
+     * Prints out a list of commands for user reference.
+     */
     public void showHelp() {
         System.out.println("""
             ____________________________________________________________
@@ -50,6 +57,9 @@ public class Ui {
         System.out.println(s);
     }
 
+    /**
+     * Prints out the exit message when user quits.
+     */
     public void exit() {
         System.out.println("""
             ____________________________________________________________

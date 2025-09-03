@@ -1,9 +1,19 @@
 package mochi;
 
+/**
+ * Extends MochiException to handle errors related to marking and unmarking tasks.
+ */
 public class MarkingException extends MochiException {
     private final String inputProvided;
     private final int listRange;
 
+    /**
+     * Returns an exception that contains details regarding why the task marking
+     * or unmarking went wrong.
+     *
+     * @param inputProvided what input parameters the user typed
+     * @param listRange the size of the Task List
+     */
     public MarkingException(String inputProvided, int listRange) {
         super();
         this.inputProvided = inputProvided;

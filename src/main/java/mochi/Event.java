@@ -9,7 +9,8 @@ import java.time.format.DateTimeParseException;
  * Implements an Event task, which is a type of Task that has a description, start time, and end time.
  */
 public class Event extends Task {
-    private LocalDateTime from, to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Creates an uncompleted Event with a description, start time, and end time.
@@ -73,12 +74,14 @@ public class Event extends Task {
     @Override
     public String getSaveString() {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return String.format("E | %d | %s | %s | %s", this.completed ? 1 : 0, this.description, this.from.format(dateFormat), this.to.format(dateFormat));
+        return String.format("E | %d | %s | %s | %s", this.completed ? 1 : 0, this.description,
+                this.from.format(dateFormat), this.to.format(dateFormat));
     }
 
     @Override
     public String toString() {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MMM/yyyy HH:mm");
-        return String.format("[E]%s (from %s to %s)", super.toString(), this.from.format(dateFormat), this.to.format(dateFormat));
+        return String.format("[E]%s (from %s to %s)", super.toString(),
+                this.from.format(dateFormat), this.to.format(dateFormat));
     }
 }

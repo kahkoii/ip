@@ -72,7 +72,7 @@ public abstract class Task {
 
     /**
      *  Returns the task in string format for display.
-     * 
+     *
      *  @return the task in the format "[status] description", e.g. "[X] return book".
      */
     @Override

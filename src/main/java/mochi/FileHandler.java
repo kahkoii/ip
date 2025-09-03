@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/*
+/**
  * Handles reading from and writing to the save file.
  */
 public class FileHandler {
@@ -16,7 +16,7 @@ public class FileHandler {
         this.fileName = s;
     }
 
-    /*
+    /**
      * Saves the current task list to the save file inside the `data` folder.
      */
     public void save(ArrayList<Task> list) {
@@ -32,7 +32,7 @@ public class FileHandler {
         }
     }
 
-    /*
+    /**
      * Loads the task list from the save file inside the `data` folder.
      * If the file or folder does not exist, a new one will be created.
      */
@@ -74,10 +74,10 @@ public class FileHandler {
     private Task parseLine(String line) throws MochiException {
         String[] data = line.split("\\|");
         return switch (data[0].toUpperCase().trim()) {
-            case ("T") -> new ToDo(data[2].trim(), data[1].trim().equals("1"));
-            case ("D") ->  new Deadline(data[2].trim(), data[3].trim(), data[1].trim().equals("1"));
-            case ("E") ->  new Event(data[2].trim(), data[3].trim(), data[4].trim(), data[1].trim().equals("1"));
-            default -> throw new MochiException("Data file corrupted or in incorrect format.");
+        case ("T") -> new ToDo(data[2].trim(), data[1].trim().equals("1"));
+        case ("D") -> new Deadline(data[2].trim(), data[3].trim(), data[1].trim().equals("1"));
+        case ("E") -> new Event(data[2].trim(), data[3].trim(), data[4].trim(), data[1].trim().equals("1"));
+        default -> throw new MochiException("Data file corrupted or in incorrect format.");
         };
     }
 }

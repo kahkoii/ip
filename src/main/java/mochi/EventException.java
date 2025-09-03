@@ -1,5 +1,8 @@
 package mochi;
 
+/**
+ * Extends MochiException to handle Event specific exceptions
+ */
 public class EventException extends MochiException {
     private String message = null;
 
@@ -7,6 +10,11 @@ public class EventException extends MochiException {
         super();
     }
 
+    /**
+     * Returns an exception that contains details regarding event errors.
+     *
+     * @param s error message for the event issue
+     */
     public EventException(String s) {
         this();
         this.message = s;
@@ -27,6 +35,6 @@ public class EventException extends MochiException {
                 ------------------------- Details -------------------------
                  Invalid event command used.
                  %s
-                -----------------------------------------------------------""",  this.message);
+                -----------------------------------------------------------""", this.message);
     }
 }
