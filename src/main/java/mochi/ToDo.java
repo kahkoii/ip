@@ -9,7 +9,7 @@ public class ToDo extends Task {
      *
      * @param desc the description of the todo item
      */
-    public ToDo (String desc) {
+    public ToDo(String desc) {
         super(desc);
     }
 
@@ -19,8 +19,8 @@ public class ToDo extends Task {
      * @param desc the description of the todo item
      * @param status the completion status of the todo item
      */
-    public ToDo (String desc, boolean status) {
-        super(desc,status);
+    public ToDo(String desc, boolean status) {
+        super(desc, status);
     }
 
     @Override

@@ -1,10 +1,18 @@
 package mochi;
 
+/**
+ * Handles main Mochi application logic.
+ */
 public class Mochi {
     private final TaskList taskList;
     private final CommandParser cmd;
     private final Ui ui;
 
+    /**
+     * Constructor for Mochi application that takes in a data file name
+     *
+     * @param fileName the name of the data file located in the /data folder
+     */
     public Mochi(String fileName) {
         this.ui = new Ui();
         this.cmd = new CommandParser();
@@ -12,6 +20,9 @@ public class Mochi {
         this.taskList = new TaskList(fh.load(), fh);
     }
 
+    /**
+     * Main program flow for user input and command handling.
+     */
     public void run() {
         cmd.read();
         while (cmd.running()) {
@@ -71,7 +82,12 @@ public class Mochi {
         ui.exit();
     }
 
-     public static void main(String[] args) {
+    /**
+     * Application main entrypoint.
+     *
+     * @param args program arguments
+     */
+    public static void main(String[] args) {
         new Mochi("data.txt").run();
     }
 }

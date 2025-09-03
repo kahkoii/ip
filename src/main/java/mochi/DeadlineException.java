@@ -1,5 +1,8 @@
 package mochi;
 
+/**
+ * Extends MochiException to handle Deadline specific exceptions
+ */
 public class DeadlineException extends MochiException {
     public DeadlineException() {
         super();
