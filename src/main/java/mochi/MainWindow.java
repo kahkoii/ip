@@ -25,9 +25,23 @@ public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserIcon.png"));
     private final Image mochiImage = new Image(this.getClass().getResourceAsStream("/images/MochiIcon.png"));
 
+    /**
+     * Initialize the scrollPane with the welcome message node.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(
+                DialogBox.getMochiDialog("""
+             Hello! I'm your personalized assistant,
+             __  __            _     _
+            |  \\/  | ___   ___| |__ (_)
+            | |\\/| |/ _ \\ / __| '_ \\| |
+            | |  | | (_) | (__| | | | |
+            |_|  |_|\\___/ \\___|_| |_|_| \n
+             Type 'help' to begin!
+             """, mochiImage)
+        );
     }
 
     /** Injects the Mochi instance */

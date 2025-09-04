@@ -13,13 +13,12 @@ public class Ui {
         // Initialization message
         System.out.println("""
             ____________________________________________________________
-             Hello! I'm your personalized assistant,
               __  __            _     _
              |  \\/  | ___   ___| |__ (_)
              | |\\/| |/ _ \\ / __| '_ \\| |
              | |  | | (_) | (__| | | | |
              |_|  |_|\\___/ \\___|_| |_|_| \n
-             Type 'help' to begin!
+             Program starting...
             ____________________________________________________________""");
     }
 
