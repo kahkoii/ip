@@ -11,11 +11,10 @@ public class DeadlineException extends MochiException {
     @Override
     public String toString() {
         return String.format(super.toString() + "\n" + """
-            ------------------------- Details -------------------------
              Invalid deadline command used.
              Format: `deadline <description> /by <date> <time (optional)>`
                       date format: YYYY-MM-DD | time format: HHmm
              Example: deadline watch lecture videos /by 2019-10-15 1800
-             -----------------------------------------------------------""");
+             """);
     }
 }

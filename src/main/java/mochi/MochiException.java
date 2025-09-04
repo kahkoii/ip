@@ -23,16 +23,13 @@ public class MochiException extends Exception {
     @Override
     public String toString() {
         if (this.info != null) {
-            return String.format("""
-                ========================== ERROR ===========================
-                 %s
-                ============================================================""", this.info);
+            return "[ ERROR ]\n" + this.info;
         } else {
             return """
-                ========================== ERROR ===========================
+                [ ERROR ]
                  Very confused, much wow. Invalid command entered.
                  Enter command 'help' for a list of commands
-                ============================================================""";
+                """;
         }
     }
 }
