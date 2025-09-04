@@ -9,7 +9,7 @@ public class Mochi {
     private final Ui ui;
 
     /**
-     * Constructor for Mochi application that takes in a data file name
+     * Constructor for Mochi application that takes in a data file name.
      *
      * @param fileName the name of the data file located in the /data folder
      */
@@ -21,73 +21,69 @@ public class Mochi {
     }
 
     /**
-     * Main program flow for user input and command handling.
+     * Generates a response for the user's chat message.
      */
-    public void run() {
-        cmd.read();
-        while (cmd.running()) {
-            try {
-                if (cmd.is("list")) {
-                    ui.print(taskList.toString());
-                } else if (cmd.is("mark")) {
-                    try {
-                        ui.print(taskList.complete(cmd.markCommand(taskList.size())));
-                    } catch (MarkingException e) {
-                        ui.error(e);
-                    }
-                } else if (cmd.is("unmark")) {
-                    try {
-                        ui.print(taskList.undo(cmd.unmarkCommand(taskList.size())));
-                    } catch (MarkingException e) {
-                        ui.error(e);
-                    }
-                } else if (cmd.is("todo")) {
-                    try {
-                        taskList.add(cmd.todoCommand());
-                    } catch (ToDoException e) {
-                        ui.error(e);
-                    }
-                } else if (cmd.is("deadline")) {
-                    try {
-                        taskList.add(cmd.deadlineCommand());
-                    } catch (DeadlineException e) {
-                        ui.error(e);
-                    }
-                } else if (cmd.is("event")) {
-                    try {
-                        taskList.add(cmd.eventCommand());
-                    } catch (EventException e) {
-                        ui.error(e);
-                    }
-                } else if (cmd.is("delete")) {
-                    try {
-                        taskList.remove(cmd.deleteCommand(taskList.size()));
-                        ui.print(taskList.toString());
-                    } catch (MochiException e) {
-                        ui.error(e);
-                    }
-                } else if (cmd.is("find")) {
-                    taskList.prinTasksWithWord(cmd.findCommand());
-                } else if (cmd.is("help")) {
-                    ui.showHelp();
-                } else {
-                    throw new MochiException();
-                }
-            } catch (Exception e) {
-                ui.error(e);
-            }
-            // Always read new input
-            cmd.read();
-        }
-        ui.exit();
+    public String getResponse(String input) {
+        cmd.read(input);
+        return output();
     }
 
     /**
-     * Application main entrypoint.
-     *
-     * @param args program arguments
+     * Main program flow for user input and command handling.
      */
-    public static void main(String[] args) {
-        new Mochi("data.txt").run();
+    public String output() {
+        try {
+            if (cmd.is("list")) {
+                ui.print(taskList.toString());
+            } else if (cmd.is("mark")) {
+                try {
+                    ui.print(taskList.complete(cmd.markCommand(taskList.size())));
+                } catch (MarkingException e) {
+                    ui.error(e);
+                }
+            } else if (cmd.is("unmark")) {
+                try {
+                    ui.print(taskList.undo(cmd.unmarkCommand(taskList.size())));
+                } catch (MarkingException e) {
+                    ui.error(e);
+                }
+            } else if (cmd.is("todo")) {
+                try {
+                    ui.print(taskList.add(cmd.todoCommand()));
+                } catch (ToDoException e) {
+                    ui.error(e);
+                }
+            } else if (cmd.is("deadline")) {
+                try {
+                    ui.print(taskList.add(cmd.deadlineCommand()));
+                } catch (DeadlineException e) {
+                    ui.error(e);
+                }
+            } else if (cmd.is("event")) {
+                try {
+                    ui.print(taskList.add(cmd.eventCommand()));
+                } catch (EventException e) {
+                    ui.error(e);
+                }
+            } else if (cmd.is("delete")) {
+                try {
+                    ui.print(taskList.remove(cmd.deleteCommand(taskList.size())));
+                    ui.print(taskList.toString());
+                } catch (MochiException e) {
+                    ui.error(e);
+                }
+            } else if (cmd.is("find")) {
+                ui.print(taskList.getTasksWithWord(cmd.findCommand()));
+            } else if (cmd.is("help")) {
+                ui.showHelp();
+            } else if (cmd.is("bye")) {
+                ui.exit();
+            } else {
+                throw new MochiException();
+            }
+        } catch (Exception e) {
+            ui.error(e);
+        }
+        return ui.output();
     }
 }

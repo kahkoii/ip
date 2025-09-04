@@ -1,7 +1,5 @@
 package mochi;
 
-import java.util.Scanner;
-
 /**
  * Parses user commands and extracts relevant information for processing.
  * Also executes method calls and handles errors related to command parsing.
@@ -11,37 +9,27 @@ public class CommandParser {
         "bye", "list", "mark", "unmark", "todo", "deadline", "event", "delete", "find", "help"
     };
 
-    private final Scanner scan;
     private String command;
     private String parameters;
-    private boolean running;
 
     /**
      * Returns a CommandParser object
      */
-    public CommandParser() {
-        this.scan = new Scanner(System.in);
-        this.running = true;
-    }
+    public CommandParser() {}
 
     /**
      * Reads a line of input from the user and determines the command type and parameters.
-     * If the command is 'bye', sets running to false to indicate program termination.
+     * If the command is 'bye', sets running as false to indicate program termination.
      */
-    public void read() {
-        String s = this.scan.nextLine();
+    public void read(String s) {
         this.parameters = s;
-        if (s.startsWith("bye")) {
-            this.running = false;
-        } else {
-            for (String word : COMMANDS) {
-                if (s.startsWith(word)) {
-                    this.command = word;
-                    return;
-                }
+        for (String word : COMMANDS) {
+            if (s.startsWith(word)) {
+                this.command = word;
+                return;
             }
-            this.command = "unknown";
         }
+        this.command = "unknown";
     }
 
     /**
@@ -52,13 +40,6 @@ public class CommandParser {
      */
     public boolean is(String s) {
         return s.equals(this.command);
-    }
-
-    /**
-     * Returns whether the program should continue running.
-     */
-    public boolean running() {
-        return this.running;
     }
 
     /**

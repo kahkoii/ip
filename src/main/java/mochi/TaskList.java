@@ -22,28 +22,28 @@ public class TaskList {
 
     /**
      * Adds a task to the list and saves the updated list to the save file.
+     *
+     * @return Completion output message
      */
-    public void add(Task t) {
+    public String add(Task t) {
         list.add(t);
-        System.out.printf("""
-            ____________________________________________________________
+        fh.save(list);
+        return String.format("""
             Got it. I've added this task:
                 %s
             Now you have %d tasks in  the list.
-            ____________________________________________________________
             """, t.toString(), list.size());
-        fh.save(list);
     }
 
     /**
      * Removes a task from the list by its 1-indexed position and saves the updated list to the save file.
+     *
+     * @return Completion output message
      */
-    public void remove(int taskNumber) {
+    public String remove(int taskNumber) {
         list.remove(taskNumber - 1);
-        System.out.println("""
-            ____________________________________________________________
-            Delete operation successful.""");
         fh.save(list);
+        return "Delete operation successful.";
     }
 
     /**
@@ -78,44 +78,37 @@ public class TaskList {
     }
 
     /**
-     * Prints a list of tasks that contain the provided word to the user.
+     * Get a list of tasks that contain the provided word to the user in formatted string format.
      *
      * @param word a word or phrase of alphanumeric characters to be compared with
      */
-    public void prinTasksWithWord(String word) {
+    public String getTasksWithWord(String word) {
         boolean found = false;
+        String res = "";
         for (int i = 0; i < list.size(); i++) {
             Task t = list.get(i);
             if (t.descriptionContains(word)) {
                 if (!found) {
                     found = true;
-                    System.out.println("""
-                        ____________________________________________________________
-                         Here are the matching tasks in your list:""");
+                    res = res.concat("Here are the matching tasks in your list: \n");
                 }
-                System.out.printf("%d.%s \n", i + 1, t);
+                res = res.concat(String.format("%d.%s \n", i + 1, t));
             }
         }
         if (found) {
-            System.out.println("____________________________________________________________");
-        } else {
-            System.out.printf("""
-                        ____________________________________________________________
-                         There are no tasks that contain the word(s) '%s'
-                        ------------------------------------------------------------ \n""", word);
+            return res;
         }
+        return String.format("There are no tasks that contain the word(s) '%s'", word);
     }
 
     @Override
     public String toString() {
         String s = """
-            ____________________________________________________________
-            Here are the tasks in your list:
+            Here are the tasks in your list: \n
             """;
         for (int i = 0; i < list.size(); i++) {
             s = s.concat(String.format("%d.%s\n", i + 1, list.get(i).toString()));
         }
-        s = s.concat("____________________________________________________________");
         return s;
     }
 }

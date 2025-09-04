@@ -38,10 +38,8 @@ public abstract class Task {
     public String mark() {
         this.completed = true;
         return String.format("""
-                ____________________________________________________________
                  Nice! I've marked this task as done:
                    [X] %s
-                ____________________________________________________________
                 """, description);
     }
 
@@ -53,10 +51,8 @@ public abstract class Task {
     public String unmark() {
         this.completed = false;
         return String.format("""
-                ____________________________________________________________
                  OK, I've marked this task as not done yet:
                    [ ] %s
-                ____________________________________________________________
                 """, description);
     }
 
