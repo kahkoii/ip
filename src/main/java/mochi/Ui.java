@@ -4,11 +4,12 @@ package mochi;
  * Handles visuals or texts displayed to the user, such as menus or error messasges.
  */
 public class Ui {
+    private String response;
     /**
      * Returns a UI object to display Mochi specific messages.
      */
-    @SuppressWarnings("checkstyle:Regexp")
     public Ui() {
+        this.response = "";
         // Initialization message
         System.out.println("""
             ____________________________________________________________
@@ -19,16 +20,25 @@ public class Ui {
              | |  | | (_) | (__| | | | |
              |_|  |_|\\___/ \\___|_| |_|_| \n
              Type 'help' to begin!
-            ____________________________________________________________"""
-        );
+            ____________________________________________________________""");
+    }
+
+    /**
+     * Returns the result of all string output and resets output string.
+     *
+     * @return string to be output to the user
+     */
+    public String output() {
+        String t = response;
+        response = "";
+        return t;
     }
 
     /**
      * Prints out a list of commands for user reference.
      */
     public void showHelp() {
-        System.out.println("""
-            ____________________________________________________________
+        this.response = """
              1. 'todo <description>'
                 -> create a todo task
              2. 'deadline <description> /by <due date>'
@@ -46,25 +56,21 @@ public class Ui {
                 -> prints a list of tasks that contain the word(s) given
              8. 'bye'
                 -> exit the program
-            ____________________________________________________________""");
+            """;
     }
 
     public void error(Exception e) {
-        System.out.println(e.toString());
+        this.response = e.toString();
     }
 
     public void print(String s) {
-        System.out.println(s);
+        this.response = this.response.concat(s);
     }
 
     /**
      * Prints out the exit message when user quits.
      */
     public void exit() {
-        System.out.println("""
-            ____________________________________________________________
-            Bye. Hope to see you again soon!
-            ____________________________________________________________
-            """);
+        this.response = "Bye. Hope to see you again soon!";
     }
 }

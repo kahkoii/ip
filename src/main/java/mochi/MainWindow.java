@@ -22,8 +22,8 @@ public class MainWindow extends AnchorPane {
 
     private Mochi mochi;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserIcon.png"));
-    private Image mochiImage = new Image(this.getClass().getResourceAsStream("/images/MochiMascot.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserIcon.png"));
+    private final Image mochiImage = new Image(this.getClass().getResourceAsStream("/images/MochiIcon.png"));
 
     @FXML
     public void initialize() {
