@@ -22,6 +22,7 @@ public class CommandParser {
      * If the command is 'bye', sets running as false to indicate program termination.
      */
     public void read(String s) {
+        assert !s.isEmpty() : "Commands should not be empty.";
         this.parameters = s;
         for (String word : COMMANDS) {
             if (s.startsWith(word)) {
@@ -51,6 +52,7 @@ public class CommandParser {
      */
     public int markCommand(int listSize) throws MarkingException {
         String task = this.parameters.substring(4).trim();
+        assert !task.isEmpty() : "Mark commands should contain valid task number.";
         int taskNo;
         try {
             taskNo = Integer.parseInt(task);
@@ -72,6 +74,7 @@ public class CommandParser {
      */
     public int unmarkCommand(int listSize) throws MarkingException {
         String task = this.parameters.substring(6).trim();
+        assert !task.isEmpty() : "Unmark commands should contain valid task number.";
         int taskNo;
         try {
             taskNo = Integer.parseInt(task);
