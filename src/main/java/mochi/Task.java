@@ -75,7 +75,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        char status = completed ? 'x' : ' ';
+        char status = completed ? 'X' : ' ';
         return String.format("[%c] %s", status, description);
     }
 }

@@ -89,13 +89,14 @@ public class TaskList {
         String res = "";
         for (int i = 0; i < list.size(); i++) {
             Task t = list.get(i);
-            if (t.descriptionContains(word)) {
-                if (!found) {
-                    found = true;
-                    res = res.concat("Here are the matching tasks in your list: \n");
-                }
-                res = res.concat(String.format("%d.%s \n", i + 1, t));
+            if (!t.descriptionContains(word)) {
+                continue;
             }
+            if (!found) {
+                found = true;
+                res = res.concat("Here are the matching tasks in your list: \n");
+            }
+            res = res.concat(String.format("%d.%s \n", i + 1, t));
         }
         if (found) {
             return res;
