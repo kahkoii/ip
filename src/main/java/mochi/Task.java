@@ -15,6 +15,7 @@ public abstract class Task {
      * @param desc the description of the task
      */
     public Task(String desc) {
+        assert !desc.isEmpty() : "Task descriptions should not be empty.";
         this.description = desc;
         this.completed = false;
     }
@@ -26,6 +27,7 @@ public abstract class Task {
      * @param status the completion status of the task
      */
     public Task(String desc, boolean status) {
+        assert !desc.isEmpty() : "Task descriptions should not be empty.";
         this.description = desc;
         this.completed = status;
     }
