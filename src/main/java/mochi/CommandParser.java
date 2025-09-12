@@ -71,7 +71,8 @@ public class CommandParser {
      * @throws MarkingException if the parameters are invalid or out of range
      */
     public int unmarkCommand(int listSize) throws MarkingException {
-        String task = this.parameters.substring(6).trim();
+        int commandLength = 6;
+        String task = this.parameters.substring(commandLength).trim();
         int taskNo;
         try {
             taskNo = Integer.parseInt(task);
@@ -91,7 +92,8 @@ public class CommandParser {
      * @throws ToDoException if the description is empty
      */
     public ToDo todoCommand() throws ToDoException {
-        String task = this.parameters.substring(4).trim();
+        int commandLength = 4;
+        String task = this.parameters.substring(commandLength).trim();
         if (task.isEmpty()) {
             throw new ToDoException();
         }
@@ -105,8 +107,9 @@ public class CommandParser {
      * @throws DeadlineException if the description or by date is invalid
      */
     public Deadline deadlineCommand() throws DeadlineException {
+        int commandLength = 8;
         try {
-            String task = this.parameters.substring(8).trim();
+            String task = this.parameters.substring(commandLength).trim();
             String[] text = task.split("/by", 2);
             String desc = text[0].trim();
             String by = text[1].trim();
@@ -127,8 +130,9 @@ public class CommandParser {
      * @throws EventException if the description, to or from date is invalid
      */
     public Event eventCommand() throws EventException {
+        int commandLength = 5;
         try {
-            String task = this.parameters.substring(5).trim();
+            String task = this.parameters.substring(commandLength).trim();
             String[] text = task.split("/from", 2);
             String desc = text[0].trim();
             String[] duration = text[1].split("/to", 2);
@@ -152,7 +156,8 @@ public class CommandParser {
      * @throws MochiException if the parameters are invalid or out of range
      */
     public int deleteCommand(int listSize) throws MochiException {
-        String task = this.parameters.substring(6).trim();
+        int commandLength = 6;
+        String task = this.parameters.substring(commandLength).trim();
         int taskNo;
         try {
             taskNo = Integer.parseInt(task);
@@ -167,7 +172,13 @@ public class CommandParser {
         return taskNo;
     }
 
+    /**
+     * Extracts the keyword(s) from the user command
+     *
+     * @return the substring of the keyword(s) to be searched for
+     */
     public String findCommand() {
-        return this.parameters.substring(4).trim();
+        int commandLength = 4;
+        return this.parameters.substring(commandLength).trim();
     }
 }
