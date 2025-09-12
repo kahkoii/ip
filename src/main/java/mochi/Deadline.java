@@ -48,7 +48,7 @@ public class Deadline extends Task {
 
     @Override
     public String getSaveString() {
-        return String.format("D | %d | %s | %s", this.completed ? 1 : 0, this.description,
+        return String.format("D | %d | %s | %s", this.completed ? 1 : 0, super.getDescriptionSaveString(),
                 this.due.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
     }
 

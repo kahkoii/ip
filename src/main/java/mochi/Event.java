@@ -74,7 +74,7 @@ public class Event extends Task {
     @Override
     public String getSaveString() {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return String.format("E | %d | %s | %s | %s", this.completed ? 1 : 0, this.description,
+        return String.format("E | %d | %s | %s | %s", this.completed ? 1 : 0, super.getDescriptionSaveString(),
                 this.from.format(dateFormat), this.to.format(dateFormat));
     }
 
