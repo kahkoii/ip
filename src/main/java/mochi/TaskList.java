@@ -41,6 +41,7 @@ public class TaskList {
      * @return Completion output message
      */
     public String remove(int taskNumber) {
+        assert taskNumber > 0 : "Task numbers should be at least 1.";
         list.remove(taskNumber - 1);
         fh.save(list);
         return "Delete operation successful.";
@@ -61,6 +62,7 @@ public class TaskList {
      * @return Completion output message
      */
     public String complete(int taskNumber) {
+        assert taskNumber > 0 : "Task numbers should be at least 1.";
         String res = list.get(taskNumber - 1).mark();
         fh.save(list);
         return res;

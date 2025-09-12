@@ -14,6 +14,7 @@ public class Mochi {
      * @param fileName the name of the data file located in the /data folder
      */
     public Mochi(String fileName) {
+        assert !fileName.isEmpty() : "Data file name not specified.";
         this.ui = new Ui();
         this.cmd = new CommandParser();
         FileHandler fh = new FileHandler(fileName);
