@@ -53,7 +53,11 @@ public class Ui {
                 -> uncheck a task to set it to incomplete
              7. 'find <word>'
                 -> prints a list of tasks that contain the word(s) given
-             8. 'bye'
+             8. 'tag <number> <word>'
+                -> tags a word to a task, that will be displayed with a '#'
+             9. 'untag <number> <word>
+                -> removes a tag from a particular task
+             10. 'bye'
                 -> exit the program
             """;
     }

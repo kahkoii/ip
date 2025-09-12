@@ -25,7 +25,7 @@ public class ToDo extends Task {
 
     @Override
     public String getSaveString() {
-        return String.format("T | %d | %s", this.completed ? 1 : 0, this.description);
+        return String.format("T | %d | %s", this.completed ? 1 : 0, super.getDescriptionSaveString());
     }
 
     @Override

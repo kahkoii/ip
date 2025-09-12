@@ -1,12 +1,14 @@
 package mochi;
 
+import javafx.util.Pair;
+
 /**
  * Parses user commands and extracts relevant information for processing.
  * Also executes method calls and handles errors related to command parsing.
  */
 public class CommandParser {
     private static final String[] COMMANDS = new String[] {
-        "bye", "list", "mark", "unmark", "todo", "deadline", "event", "delete", "find", "help"
+        "bye", "list", "mark", "unmark", "tag", "untag", "todo", "deadline", "event", "delete", "find", "help"
     };
 
     private String command;
@@ -86,6 +88,26 @@ public class CommandParser {
             throw new MarkingException(task, listSize);
         }
         return taskNo;
+    }
+
+    /**
+     * Parses and validates the parameters for the 'tag' and 'untag' command.
+     *
+     * @return the 1-indexed task number to be marked as uncompleted
+     * @throws MochiException if the tag is empty
+     */
+    public Pair<Integer, String> tagCommand() throws MochiException {
+        String[] text = this.parameters.split(" ");
+        int taskNo;
+        try {
+            taskNo = Integer.parseInt(text[1]);
+        } catch (Exception e) {
+            throw new MochiException("Task number is required for tagging.");
+        }
+        if (text.length == 2) {
+            throw new MochiException("Tag description is required for tagging.");
+        }
+        return new Pair<Integer, String>(taskNo, text[2]);
     }
 
     /**

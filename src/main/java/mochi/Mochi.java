@@ -1,5 +1,7 @@
 package mochi;
 
+import javafx.util.Pair;
+
 /**
  * Handles main Mochi application logic.
  */
@@ -75,6 +77,20 @@ public class Mochi {
                 }
             } else if (cmd.is("find")) {
                 ui.print(taskList.getTasksWithWord(cmd.findCommand()));
+            } else if (cmd.is("tag")) {
+                try {
+                    Pair<Integer, String> res = cmd.tagCommand();
+                    ui.print(taskList.tag(res.getKey(), res.getValue()));
+                } catch (MochiException e) {
+                    ui.error(e);
+                }
+            } else if (cmd.is("untag")) {
+                try {
+                    Pair<Integer, String> res = cmd.tagCommand();
+                    ui.print(taskList.untag(res.getKey(), res.getValue()));
+                } catch (MochiException e) {
+                    ui.error(e);
+                }
             } else if (cmd.is("help")) {
                 ui.showHelp();
             } else if (cmd.is("bye")) {
