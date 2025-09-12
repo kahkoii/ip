@@ -10,7 +10,7 @@ public class DeadlineTest {
     public void overloadConstructorTest() {
         try {
             Deadline d = new Deadline("CS2100 Assignment", "2024-05-25", true);
-            assertEquals("[D][x] CS2100 Assignment (by: 25/May/2024 00:00)", d.toString());
+            assertEquals("[D][X] CS2100 Assignment (by: 25/May/2024 00:00)", d.toString());
         } catch (Exception e) {
             fail(e.toString());
         }

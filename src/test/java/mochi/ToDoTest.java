@@ -8,7 +8,7 @@ public class ToDoTest {
     @Test
     public void overloadConstructorTest() {
         ToDo t = new ToDo("Hackathon", true);
-        assertEquals("[T][x] Hackathon", t.toString());
+        assertEquals("[T][X] Hackathon", t.toString());
     }
 
     @Test

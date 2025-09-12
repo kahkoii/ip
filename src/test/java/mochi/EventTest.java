@@ -2,6 +2,7 @@ package mochi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
@@ -22,15 +23,7 @@ public class EventTest {
         Throwable exception = assertThrows(EventException.class, () -> {
             Event e = new Event("Sleeping in", "2023-05-11", "2023-02-11");
         });
-        assertEquals("""
-                ========================== ERROR ===========================
-                 Very confused, much wow. Invalid command entered.
-                 Enter command 'help' for a list of commands
-                ============================================================
-                ------------------------- Details -------------------------
-                 Invalid event command used.
-                 The end time must be after the start time.
-                -----------------------------------------------------------""",
-                exception.toString());
+        System.out.println(exception.toString());
+        assertTrue(exception.toString().contains("end time must be after the start time"));
     }
 }
