@@ -48,6 +48,28 @@ public class TaskList {
     }
 
     /**
+     * Adds a tag to a particular task from the list.
+     *
+     * @return Completion output message
+     */
+    public String tag(int taskNumber, String tag) {
+        String res = list.get(taskNumber - 1).tag(tag);
+        fh.save(list);
+        return res;
+    }
+
+    /**
+     * Removes a tag from a particular task from the list.
+     *
+     * @return Completion output message
+     */
+    public String untag(int taskNumber, String tag) {
+        String res = list.get(taskNumber - 1).untag(tag);
+        fh.save(list);
+        return res;
+    }
+
+    /**
      * Returns the number of tasks in the list.
      *
      * @return int number of tasks in the list
