@@ -40,6 +40,7 @@ public class FileHandler {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File("data/" + this.fileName);
         try {
+            file.getParentFile().mkdirs();
             boolean newFileCreated = file.createNewFile();
             if (newFileCreated) {
                 return new ArrayList<>();
