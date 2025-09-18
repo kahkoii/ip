@@ -4,7 +4,7 @@ Mochi is a command-line-based task management tool that helps people track their
 deadlines and events. Essentially, to-dos are just default tasks, deadlines come with
 a specified end time, and events come with start and end times.
 
-![UI Image](UI.png "Mochi App")
+![UI Image](Ui.png "Mochi App")
 
 ## Features
 
